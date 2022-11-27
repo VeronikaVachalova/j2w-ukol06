@@ -1,5 +1,4 @@
 [#ftl]
-
 [#macro page]
     <!DOCTYPE html>
     <html lang="cs">

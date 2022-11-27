@@ -1,5 +1,4 @@
 [#ftl]
-
 [#macro form method bind attributes...]
     [#assign bind = .data_model[bind] ]
     [#assign bindStatus = .data_model["org.springframework.validation.BindingResult.${bind}"] ]

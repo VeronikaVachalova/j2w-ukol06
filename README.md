@@ -1,7 +1,7 @@
 # Úkol 6 – Vizitky 3.0
 
 Aplikaci pro zobrazování vizitek upravíme tak, aby údaje o vizitkách měla uložené v databázi. Údaje se tak (konečně!) nebudou ztrácet při restartu aplikace.
-Jako výchozí repository použij toto repository, je zde nakonfigurovaná databáze. Pokud sis v předchozích úkolech s vizitkami upravovala vzhled stránky,
+Jako výchozí cz.czechitas.java2webapps.ukol6.repository použij toto cz.czechitas.java2webapps.ukol6.repository, je zde nakonfigurovaná databáze. Pokud sis v předchozích úkolech s vizitkami upravovala vzhled stránky,
 můžeš úpravené styly a stránky použít i zde.
 
 Aplikace bude na úvodní stránce zobrazovat seznam vizitek (šablona `seznam.ftlh`). Po kliknutí na vizitku se zobrazí její detail – stránka s jednou vizitkou,
@@ -37,23 +37,23 @@ public void nullStringBinding(WebDataBinder binder) {
   binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 }
 ```
-1. Udělej fork zdrojového repository do svého účtu na GitHubu, případně pokračuj ve svém úkolu z předchozí lekce.
-1. Naklonuj si repository **ze svého účtu** na GitHubu na lokální počítač.
+1. Udělej fork zdrojového cz.czechitas.java2webapps.ukol6.repository do svého účtu na GitHubu, případně pokračuj ve svém úkolu z předchozí lekce.
+1. Naklonuj si cz.czechitas.java2webapps.ukol6.repository **ze svého účtu** na GitHubu na lokální počítač.
 1. Spusť si naklonovanou aplikaci, aby se vytvotřila databáze. V prohlížeči se na stránce [http://localhost:8080/](http://localhost:8080/) zatím bude zobrazovat
-   jen chyba, v aplikaci není žádný controller.
+   jen chyba, v aplikaci není žádný cz.czechitas.java2webapps.ukol6.controller.
 1. Zprovozni si panel Database v IntelliJ Idea, ať si můžeš ověřit, co je v databázi. Připojovací URL, které se zadává při konfiguraci panelu Database
    v IntelliJ Idea, najdeš v souboru `src/main/resources/application.yaml`. Na panelu se vytváří nový *Data Source*, databáze je *H2*.
-1. Vytvoři si controller (nezapomeň na odpovídající anotaci třídy), která bude odpovídat na požadavky `GET` na URL `/`. Metoda zobrazí view `seznam`, zatím
+1. Vytvoři si cz.czechitas.java2webapps.ukol6.controller (nezapomeň na odpovídající anotaci třídy), která bude odpovídat na požadavky `GET` na URL `/`. Metoda zobrazí view `seznam`, zatím
    bez dat. Ověř si, že se v prohlížeči zobrazí stránka s jednou vizitkou a jednou prázdnou vizitkou, která funguje jako tlačítko pro přidání.
 1. Vytvoř entitu `Vizitka`, nezapomeň na správnou anotaci třídy. Přidej fieldy na základě popisu tabulky výše a z fieldů vygeneruj properties. Vlastní
    konstruktor není potřeba (Java automaticky vytvoří bezparametrický konstruktor, který nám stačí). Nezapomeň field `id` označit anotacemi – jde o databázový
    identifikátor a databáze ho má generovat automaticky.
-1. Vytvoř respository pro přístup k databázové tabulce s vizitkami. Na jménu repository nezáleží, nezapomeň však na správnou anotaci. Repository nebude třída
-   (`class`), ale rozhraní (`interface`) a rozšiřuje (`extends`) rozhraní `CrudRepository`. Při rozšiřování `CrudRepository` je potřeba uvést typ entity (`Vizitka`)
+1. Vytvoř respository pro přístup k databázové tabulce s vizitkami. Na jménu cz.czechitas.java2webapps.ukol6.repository nezáleží, nezapomeň však na správnou anotaci. Repository nebude třída
+   (`class`), ale rozhraní (`interface`) a rozšiřuje (`extends`) rozhraní `CrudRepository`. Při rozšiřování `CrudRepository` je potřeba uvést typ cz.czechitas.java2webapps.ukol6.entity (`Vizitka`)
    a typ primárního klíče (databázového identifikátoru) `Integer`.
-1. Uprav controller tak, že bude mít field pro repository. Vytvoř pro controller konstruktor, který dostane repository jako vstupí parametr a uloží si ho do fieldu,
-   aby bylo možné repository později v controlleru používat.
-1. Uprav metodu controlleru, která zobrazuje seznam vizitek, aby z repository získala seznam vizitek voláním `findAll()`. Seznam vizitek vlož do modelu pod
+1. Uprav cz.czechitas.java2webapps.ukol6.controller tak, že bude mít field pro cz.czechitas.java2webapps.ukol6.repository. Vytvoř pro cz.czechitas.java2webapps.ukol6.controller konstruktor, který dostane cz.czechitas.java2webapps.ukol6.repository jako vstupí parametr a uloží si ho do fieldu,
+   aby bylo možné cz.czechitas.java2webapps.ukol6.repository později v controlleru používat.
+1. Uprav metodu controlleru, která zobrazuje seznam vizitek, aby z cz.czechitas.java2webapps.ukol6.repository získala seznam vizitek voláním `findAll()`. Seznam vizitek vlož do modelu pod
    nějakým klíčem, třeba `seznam`.
 1. Uprav šablonu `seznam.ftlh` tak, aby pomocí `[#list]` procházela seznam vizitek a vypisovala je na stránku. Teď si zase můžeš v prohlížeči zkontrolovat, že
    se úvodní stránka zobrazuje správně a už na ní není jedna vizitka, ale všechny vizitky zadané v databázi. Můžeš si otevřít tabulku vizitka v IntelliJ Idea a
@@ -61,7 +61,7 @@ public void nullStringBinding(WebDataBinder binder) {
 1. Zkontroluj, že správně fungují odkaz na úvodní stránce – první vizitka by měla odkazovat na adresu `http://localhost:8080/1`, druhá na `http://localhost:8080/2`.
    Čísla za lomítkem jsou ID databázového záznamum tj. nemusí začínat jedničkou.
 1. Zprovozni metodu controlleru, která bude reagovat na požadavky metodou `GET`, které budou mít v URL hned za lomítkem číslo. Číslo bude předáno jako parametr
-   dovnitř metody. Na základě tohoto ID načti pomocí repository z databáze jeden záznam s odpovídajícím ID. Dostaneš na výstupu typ `Optional<Vizitka>`. Ověříš,
+   dovnitř metody. Na základě tohoto ID načti pomocí cz.czechitas.java2webapps.ukol6.repository z databáze jeden záznam s odpovídajícím ID. Dostaneš na výstupu typ `Optional<Vizitka>`. Ověříš,
    zda je v `Optional` přítomná hodnota. Pokud ano, vložíš ji do modelu a zobrazíš pomocí šablony `vizitka.ftlh`. Pokud v `Optional` nebudou data přítomná
    (vizitka s daným ID neexistuje), ukončíš metodu voláním `return` s návratovým kódem, který prohlížeči signalizuje stav `404 Not found` – stránka nenalezena.
    Použij k tomu tento kód:
@@ -78,12 +78,12 @@ public void nullStringBinding(WebDataBinder binder) {
 1. Do controlleru přidej metodu, která bude reagovat na `GET` požadavky na adrese `/nova`. Metoda jen zobrazí šablonu `formular.ftlh`. Uprav formulář tak,
    aby odesílal data metodou `POST` na adresu `/nova`. Vyzkoušej v prohlížeči, že funguje odkaz na přidání vizitky na úvodní stránce.
 1. Do controlleru přidej POST metodu, která bude reagovat na `POST` požadavky na adrese `/nova`. Jako parametr bude přijímat entitu `Vizitka`, použijeme ji i
-   pro přenos dat z formuláře. Použij metodu `save()` repository pro uložení vizitky. Po uložení vizitky přesměruj uživatele na úvodní stránku. Vyzkoušej
+   pro přenos dat z formuláře. Použij metodu `save()` cz.czechitas.java2webapps.ukol6.repository pro uložení vizitky. Po uložení vizitky přesměruj uživatele na úvodní stránku. Vyzkoušej
    v prohlížeči, že funguje přidání vizitky.
 1. **Bonus 1** Formulář pro přidání vizitky má už na sobě validace. To jsou však jen doporučení pro prohlížeč, uživatel je může obejít – může si např.
    v prohlížeči stránku upravit tak, že validace odstraní. V našem případě by nanejvýš poškodil své vlastní vizitky, navíc povinnost údajů hlídá i databáze
    (ta ale třeba pustí prázdné jméno – kontroluje jenom zda není `null`). V reálné aplikaci je tedy vždy potřeba kontrolovat vstup uživatele i na serveru. Můžeš
-   tedy jako bonus doplnit do entity i validační anotace, přidat validaci do controlleru a podle výsledku validace zjišťovat, zda znovu zobrazit formulář, nebo
+   tedy jako bonus doplnit do cz.czechitas.java2webapps.ukol6.entity i validační anotace, přidat validaci do controlleru a podle výsledku validace zjišťovat, zda znovu zobrazit formulář, nebo
    zda je validace bez chyb a je možné záznam uložit do databáze. Pro validaci PSČ můžeš použít anotaci `@Pattern(regexp = "\\d{5}")` – uvedený regulární výraz
    kontroluje, že text obsahuje přesně pět číslic. Tip – pokud nechceš odebírat všechny klientské validace z formuláře, stačí na formulář (HTML element `<form>`)
    přidat prázdný atribut `novalidate`. Tím se validace v prohlížeči vypnou.
@@ -93,8 +93,8 @@ public void nullStringBinding(WebDataBinder binder) {
    vizitku (metoda bude volána metodou `POST`) a metodu, která smaže vizitku určenou ID (také metoda `POST`). Metoda pro uložení vizitky by opět měla validovat
    vstupní data a zobrazit znovu formulář s validačními chybami, pokud je nějaký údaj špatně nebo chybí.
 1. Zkontroluj, zda vše funguje.
-1. *Commitni* a *pushnni* změny (výsledný kód) do svého repository na GitHubu.
-1. Vlož odkaz na své repository do úkolu na portálu [https://moje.czechitas.cz].
+1. *Commitni* a *pushnni* změny (výsledný kód) do svého cz.czechitas.java2webapps.ukol6.repository na GitHubu.
+1. Vlož odkaz na své cz.czechitas.java2webapps.ukol6.repository do úkolu na portálu [https://moje.czechitas.cz].
 
 ## Odkazy
 
