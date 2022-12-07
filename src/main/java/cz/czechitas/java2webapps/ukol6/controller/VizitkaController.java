@@ -44,7 +44,7 @@ public class VizitkaController {
 @PostMapping("/nova")
     public Object pridat(@ModelAttribute("vizitka") @Valid Vizitka vizitka, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "detail";
+            return "formular";
         }
         vizitkaRepository.save(vizitka);
         return "redirect:/";
